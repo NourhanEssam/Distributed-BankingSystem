@@ -7,6 +7,7 @@ package distributed.bankingsystem;
 
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Collection;
 
 /**
  *
@@ -101,6 +102,51 @@ public class Server extends javax.swing.JFrame {
         }
     }
 
+    int Login (String Username, String Password)
+    {
+        int ID=0;
+        
+        return ID;
+    }
+    
+    float CheckBalance (int ID)
+    {
+        float Balance=0;
+        
+        return Balance;
+    }
+    
+    float Deposite (int ID, float amount)
+    {
+        float Balance=0;
+        
+        return Balance;
+    }
+    
+    float Withdraw (int ID, float amount)
+    {
+        float Balance=0;
+        
+        return Balance;
+    }
+    
+    float TransferIn (int ID, float amount)
+    {
+        float Balance=0;
+        
+        return Balance;
+    }
+    
+    float TransferOut (int IDIn, int IDOut, float amount)
+    {
+        float Balance=0;
+        
+        return Balance;
+    }
+    
+    // View History To Be Implemented after the database
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }
