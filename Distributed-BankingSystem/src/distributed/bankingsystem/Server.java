@@ -5,6 +5,9 @@
  */
 package distributed.bankingsystem;
 
+import java.net.ServerSocket;
+import java.net.Socket;
+
 /**
  *
  * @author Essam
@@ -76,6 +79,23 @@ public class Server extends javax.swing.JFrame {
                 new Server().setVisible(true);
             }
         });
+        try {
+            //1.Create Server Socket
+            ServerSocket server = new ServerSocket(1234);
+            while (true) {
+                //2.accept connection
+                Socket c = server.accept();
+                System.out.println("Client Arrived");
+                ClientHandler ch = new ClientHandler(c);
+                ch.start();
+
+            }
+            //6.Close the server if needed
+            //server.close();
+
+        } catch (Exception e) {
+            System.out.println("Something Went Wrong");
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
