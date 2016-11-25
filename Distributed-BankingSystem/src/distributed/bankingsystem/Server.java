@@ -82,7 +82,7 @@ public class Server extends javax.swing.JFrame {
         });
         try {
             DBConnect connect = new DBConnect();
-            connect.getData();
+            connect.getData("SELECT * FROM APP.HEY");
             
             //1.Create Server Socket
             ServerSocket server = new ServerSocket(1234);

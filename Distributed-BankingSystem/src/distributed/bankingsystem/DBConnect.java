@@ -30,10 +30,10 @@ public class DBConnect {
         }
     }
     
-    public void getData() {
+    public void getData(String Query) {
         try
         {
-            String Query  = "SELECT * FROM APP.HEY";
+            //String Query  = "SELECT * FROM APP.HEY";
             rs = st.executeQuery(Query);
             System.out.println("Records from Database");
             while(rs.next())
