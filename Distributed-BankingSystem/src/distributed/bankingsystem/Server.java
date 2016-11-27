@@ -81,67 +81,18 @@ public class Server extends javax.swing.JFrame {
             }
         });
         try {
-            DBConnect connect = new DBConnect();
-            connect.getData("SELECT * FROM APP.HEY");
-            
-            //1.Create Server Socket
+            //Create Server Socket
             ServerSocket server = new ServerSocket(1234);
             while (true) {
-                //2.accept connection
+                //accept connection
                 Socket c = server.accept();
                 System.out.println("Client Arrived");
                 ClientHandler ch = new ClientHandler(c);
                 ch.start();
-
             }
-            //6.Close the server if needed
-            //server.close();
-
         } catch (Exception e) {
-            System.out.println("Something Went Wrong");
+            System.out.println("Something Went Wrong" + e);
         }
-    }
-
-    int Login (String Username, String Password)
-    {
-        int ID=0;
-        
-        return ID;
-    }
-    
-    float CheckBalance (int ID)
-    {
-        float Balance=0;
-        
-        return Balance;
-    }
-    
-    float Deposite (int ID, float amount)
-    {
-        float Balance=0;
-        
-        return Balance;
-    }
-    
-    float Withdraw (int ID, float amount)
-    {
-        float Balance=0;
-        
-        return Balance;
-    }
-    
-    float TransferIn (int ID, float amount)
-    {
-        float Balance=0;
-        
-        return Balance;
-    }
-    
-    float TransferOut (int IDIn, int IDOut, float amount)
-    {
-        float Balance=0;
-        
-        return Balance;
     }
     
     // View History To Be Implemented after the database

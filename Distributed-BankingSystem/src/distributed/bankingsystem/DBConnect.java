@@ -21,7 +21,7 @@ public class DBConnect {
         try
         {
             Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:derby://localhost:1527/DB");
+            con = DriverManager.getConnection("jdbc:derby://localhost:1527/Bank");
             st = con.createStatement();
         }
         catch(Exception ex)
@@ -30,17 +30,28 @@ public class DBConnect {
         }
     }
     
-    public void getData(String Query) {
+    public String getData(String Query, String Column) {
+        String result = "";
         try
         {
-            //String Query  = "SELECT * FROM APP.HEY";
             rs = st.executeQuery(Query);
-            System.out.println("Records from Database");
             while(rs.next())
             {
-                String Name = rs.getString("P1");
-                System.out.println("P1 "+Name);
+                result += rs.getString(Column);
+                result += ",";
             }
+        }
+        catch(Exception ex)
+        {
+            System.out.println("Error"+ex);
+        }
+        return result;
+    }
+    
+    public void updateData(String Query) {
+        try
+        {
+            st.executeUpdate(Query);
         }
         catch(Exception ex)
         {

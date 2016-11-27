@@ -3,11 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Essam/Desktop/Banking%20System/Distributed-BankingSystem/Distributed-BankingSystem/src/distributed/bankingsystem/DBConnect.java</file>
-            <file>file:/C:/Users/Essam/Desktop/Banking%20System/Distributed-BankingSystem/Distributed-BankingSystem/src/distributed/bankingsystem/DistributedBankingSystem.java</file>
-            <file>file:/C:/Users/Essam/Desktop/Banking%20System/Distributed-BankingSystem/Distributed-BankingSystem/src/distributed/bankingsystem/ClientHandler.java</file>
-            <file>file:/C:/Users/Essam/Desktop/Banking%20System/Distributed-BankingSystem/Distributed-BankingSystem/src/distributed/bankingsystem/Server.java</file>
-            <file>file:/C:/Users/Essam/Desktop/Banking%20System/Distributed-BankingSystem/Distributed-BankingSystem/src/distributed/bankingsystem/Client.java</file>
+            <file>file:/E:/Distributed-BankingSystem/Distributed-BankingSystem/src/distributed/bankingsystem/ClientHandler.java</file>
+            <file>file:/E:/Distributed-BankingSystem/Distributed-BankingSystem/src/distributed/bankingsystem/DistributedBankingSystem.java</file>
+            <file>file:/E:/Distributed-BankingSystem/Distributed-BankingSystem/src/distributed/bankingsystem/Client.java</file>
+            <file>file:/E:/Distributed-BankingSystem/Distributed-BankingSystem/src/distributed/bankingsystem/DBConnect.java</file>
+            <file>file:/E:/Distributed-BankingSystem/Distributed-BankingSystem/src/distributed/bankingsystem/Server.java</file>
         </group>
     </open-files>
 </project-private>

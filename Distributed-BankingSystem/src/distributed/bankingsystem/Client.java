@@ -91,6 +91,7 @@ public class Client extends javax.swing.JFrame {
                     = new DataOutputStream(client.getOutputStream());
             //3.perform I/O with server
             Scanner cin = new Scanner(System.in);
+            dos.writeUTF("4,2,3,100");
             while (true) {
                 //receive msg from server
                 String servercommand =  dis.readUTF();
