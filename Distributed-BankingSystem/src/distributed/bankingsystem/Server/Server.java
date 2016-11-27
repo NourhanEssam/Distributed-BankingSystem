@@ -3,23 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package distributed.bankingsystem;
+package distributed.bankingsystem.Server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Scanner;
+import java.util.Collection;
 
 /**
  *
  * @author Essam
  */
-public class Client extends javax.swing.JFrame {
+public class Server extends javax.swing.JFrame {
 
     /**
-     * Creates new form Client
+     * Creates new form Server
      */
-    public Client() {
+    public Server() {
         initComponents();
     }
 
@@ -65,55 +64,40 @@ public class Client extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Client.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Server.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Client.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Server.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Client.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Server.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Client.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Server.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Client().setVisible(true);
+                new Server().setVisible(true);
             }
         });
         try {
-            //1.create client socket and connect to server
-            Socket client = new Socket("127.0.0.1", 1234);
-            //2.create comm streams
-            DataInputStream dis
-                    = new DataInputStream(client.getInputStream());
-            DataOutputStream dos
-                    = new DataOutputStream(client.getOutputStream());
-            //3.perform I/O with server
-            Scanner cin = new Scanner(System.in);
-            dos.writeUTF("4,2,3,100");
+            //Create Server Socket
+            ServerSocket server = new ServerSocket(1234);
             while (true) {
-                //receive msg from server
-                String servercommand =  dis.readUTF();
-                System.out.println("Server Says :" + servercommand);
-                
-                if(servercommand.equalsIgnoreCase("bye"))
-                    break;
-                
-                String userInput = cin.nextLine();
-                dos.writeUTF(userInput);
+                //accept connection
+                Socket c = server.accept();
+                System.out.println("Client Arrived");
+                ClientHandler ch = new ClientHandler(c);
+                ch.start();
             }
-
-            //4.terminate connection with server
-            client.close();
-            dis.close();
-            dos.close();
-
         } catch (Exception e) {
-            System.out.println("Something went wrong");
+            System.out.println("Something Went Wrong" + e);
         }
     }
-
+    
+    // View History To Be Implemented after the database
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }
