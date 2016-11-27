@@ -36,21 +36,27 @@ class ClientHandler  extends Thread {
                 switch (parsedRequest[0]) {
                     case "0": // Login -> Username,Password,0 .. if -1 re-enter the data
                         dos.writeUTF(Login (parsedRequest[1],parsedRequest[2]));
+                        System.out.println("case 0");
                     break;
                     case "1": //Checkamount -> ID,1 .. if -1 then empty
                         dos.writeUTF(CheckBalance(parsedRequest[1]));
+                        System.out.println("case 1");
                     break;
                     case "2": //Deposite -> ID,amount,2
                         dos.writeUTF(Deposite(parsedRequest[1], parsedRequest[2]));
+                        System.out.println("case 2");
                     break;
                     case "3": //Deposite -> ID,amount,2
                         dos.writeUTF(Withdraw(parsedRequest[1], parsedRequest[2]));
+                        System.out.println("case 3");
                     break;
                     case "4": //Deposite -> ID,amount,2
                         dos.writeUTF(TransferIn(parsedRequest[1], parsedRequest[2], parsedRequest[3]));
+                        System.out.println("case 4");
                     break;
                     default:
                         endconn = true;
+                        System.out.println("case bye");
                     break;
                 }
                 if (endconn) {
