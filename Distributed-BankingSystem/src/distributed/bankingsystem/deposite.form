@@ -34,13 +34,13 @@
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="jTextField1" max="32767" attributes="0"/>
-                  <Component id="jScrollPane1" max="32767" attributes="0"/>
                   <Component id="depositebutton" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Component id="closebutton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="49" max="32767" attributes="0"/>
                       <Component id="menubutton" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <Component id="jTextField2" max="32767" attributes="0"/>
               </Group>
               <EmptySpace pref="61" max="32767" attributes="0"/>
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
@@ -54,8 +54,8 @@
               <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
               <Component id="jTextField1" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+              <Component id="jTextField2" min="-2" pref="51" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
               <Component id="depositebutton" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="41" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -93,35 +93,34 @@
         <Property name="text" type="java.lang.String" value="Deposite Money"/>
       </Properties>
     </Component>
-    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
-      <AuxValues>
-        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-      </AuxValues>
-
-      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-      <SubComponents>
-        <Component class="javax.swing.JTextArea" name="depositetext">
-          <Properties>
-            <Property name="columns" type="int" value="20"/>
-            <Property name="rows" type="int" value="5"/>
-          </Properties>
-        </Component>
-      </SubComponents>
-    </Container>
     <Component class="javax.swing.JButton" name="depositebutton">
       <Properties>
         <Property name="text" type="java.lang.String" value="ok"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="depositebuttonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="closebutton">
       <Properties>
         <Property name="text" type="java.lang.String" value="close"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="closebuttonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="menubutton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Main Menu"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jTextField2">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jTextField2"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField2ActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

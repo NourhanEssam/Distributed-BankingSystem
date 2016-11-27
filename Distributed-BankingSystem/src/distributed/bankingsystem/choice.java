@@ -59,14 +59,39 @@ public class choice extends javax.swing.JFrame {
         });
 
         deposiebutton.setText("deposite money");
+        deposiebutton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deposiebuttonActionPerformed(evt);
+            }
+        });
 
         withdrawbutton.setText("withdraw money");
+        withdrawbutton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                withdrawbuttonActionPerformed(evt);
+            }
+        });
 
         transferSameBankbutton.setText("transfer money within the same Bank");
+        transferSameBankbutton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                transferSameBankbuttonActionPerformed(evt);
+            }
+        });
 
         transferAnotherBankbutton.setText("transfer money to another Bank");
+        transferAnotherBankbutton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                transferAnotherBankbuttonActionPerformed(evt);
+            }
+        });
 
         historybutton.setText("view your transaction history");
+        historybutton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                historybuttonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -119,7 +144,39 @@ public class choice extends javax.swing.JFrame {
 
     private void checkbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkbuttonActionPerformed
         // TODO add your handling code here:
+        Check c = new Check();
+        c.setVisible(true);
     }//GEN-LAST:event_checkbuttonActionPerformed
+
+    private void deposiebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deposiebuttonActionPerformed
+        // TODO add your handling code here:
+        deposite d = new deposite();
+        d.setVisible(true);
+    }//GEN-LAST:event_deposiebuttonActionPerformed
+
+    private void withdrawbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_withdrawbuttonActionPerformed
+        // TODO add your handling code here:
+        withdraw w =new withdraw();
+        w.setVisible(true);
+    }//GEN-LAST:event_withdrawbuttonActionPerformed
+
+    private void transferSameBankbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transferSameBankbuttonActionPerformed
+        // TODO add your handling code here:
+        transfer_s_bank t=new transfer_s_bank();
+        t.setVisible(true);
+    }//GEN-LAST:event_transferSameBankbuttonActionPerformed
+
+    private void transferAnotherBankbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transferAnotherBankbuttonActionPerformed
+        // TODO add your handling code here:
+        transfer_otherBank t=new transfer_otherBank();
+        t.setVisible(true);
+    }//GEN-LAST:event_transferAnotherBankbuttonActionPerformed
+
+    private void historybuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_historybuttonActionPerformed
+        // TODO add your handling code here:
+        history h =new history();
+        h.setVisible(true);
+    }//GEN-LAST:event_historybuttonActionPerformed
 
     /**
      * @param args the command line arguments

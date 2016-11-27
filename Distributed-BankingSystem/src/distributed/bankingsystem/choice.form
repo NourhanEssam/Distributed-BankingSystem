@@ -107,26 +107,41 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="deposite money"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deposiebuttonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="withdrawbutton">
           <Properties>
             <Property name="text" type="java.lang.String" value="withdraw money"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="withdrawbuttonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="transferSameBankbutton">
           <Properties>
             <Property name="text" type="java.lang.String" value="transfer money within the same Bank"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="transferSameBankbuttonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="transferAnotherBankbutton">
           <Properties>
             <Property name="text" type="java.lang.String" value="transfer money to another Bank"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="transferAnotherBankbuttonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="historybutton">
           <Properties>
             <Property name="text" type="java.lang.String" value="view your transaction history"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="historybuttonActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

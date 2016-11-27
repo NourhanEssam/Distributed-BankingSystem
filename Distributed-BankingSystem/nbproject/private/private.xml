@@ -3,7 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/M/Documents/GitHub/Distributed-BankingSystem/Distributed-BankingSystem/src/distributed/bankingsystem/DistributedBankingSystem.java</file>
+            <file>file:/C:/Users/M/Documents/GitHub/Distributed-BankingSystem/Distributed-BankingSystem/src/distributed/bankingsystem/Client.java</file>
+            <file>file:/C:/Users/M/Documents/GitHub/Distributed-BankingSystem/Distributed-BankingSystem/src/distributed/bankingsystem/history.java</file>
+            <file>file:/C:/Users/M/Documents/GitHub/Distributed-BankingSystem/Distributed-BankingSystem/src/distributed/bankingsystem/transfer_s_bank.java</file>
+            <file>file:/C:/Users/M/Documents/GitHub/Distributed-BankingSystem/Distributed-BankingSystem/src/distributed/bankingsystem/withdraw.java</file>
+            <file>file:/C:/Users/M/Documents/GitHub/Distributed-BankingSystem/Distributed-BankingSystem/src/distributed/bankingsystem/deposite.java</file>
+            <file>file:/C:/Users/M/Documents/GitHub/Distributed-BankingSystem/Distributed-BankingSystem/src/distributed/bankingsystem/transfer_otherBank.java</file>
+            <file>file:/C:/Users/M/Documents/GitHub/Distributed-BankingSystem/Distributed-BankingSystem/src/distributed/bankingsystem/Check.java</file>
+            <file>file:/C:/Users/M/Documents/GitHub/Distributed-BankingSystem/Distributed-BankingSystem/src/distributed/bankingsystem/choice.java</file>
         </group>
     </open-files>
 </project-private>
