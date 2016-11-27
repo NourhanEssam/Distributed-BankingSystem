@@ -14,6 +14,7 @@ import java.util.Scanner;
  *
  * @author Essam
  */
+
 public class Client extends javax.swing.JFrame {
 
     /**
@@ -59,6 +60,12 @@ public class Client extends javax.swing.JFrame {
         });
         getContentPane().add(jTextField1);
         jTextField1.setBounds(290, 0, 110, 300);
+
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jTextField2);
         jTextField2.setBounds(70, 130, 110, 20);
 
@@ -96,12 +103,15 @@ public class Client extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    String pass,name;
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
         // TODO add your handling code here:
+       
+        pass = jPasswordField1.getText();
     }//GEN-LAST:event_jPasswordField1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -109,6 +119,12 @@ public class Client extends javax.swing.JFrame {
          choice c =new choice(); 
          c.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+       
+        name=jTextField2.getText();
+    }//GEN-LAST:event_jTextField2ActionPerformed
 
     /**
      * @param args the command line arguments

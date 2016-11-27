@@ -16,6 +16,7 @@ public class DistributedBankingSystem {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        Client cl = new Client();
     }
     
 }
