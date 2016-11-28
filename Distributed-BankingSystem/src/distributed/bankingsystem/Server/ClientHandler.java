@@ -44,19 +44,21 @@ class ClientHandler  extends Thread {
                     break;
                     case "2": //Deposite -> ID,amount,2
                         dos.writeUTF(Deposite(parsedRequest[1], parsedRequest[2]));
-                        System.out.println("case 2");
                     break;
                     case "3": //Deposite -> ID,amount,2
                         dos.writeUTF(Withdraw(parsedRequest[1], parsedRequest[2]));
-                        System.out.println("case 3");
                     break;
                     case "4": //Deposite -> ID,amount,2
                         dos.writeUTF(TransferIn(parsedRequest[1], parsedRequest[2], parsedRequest[3]));
-                        System.out.println("case 4");
+                    break;
+                    case "5": //Deposite -> ID,amount,2
+                        dos.writeUTF(TransferOut(parsedRequest[1], parsedRequest[2], parsedRequest[3],parsedRequest[4]));
+                    break;
+                    case "6": //Deposite -> 6,ID,amount
+                        dos.writeUTF(Deposite(parsedRequest[1], parsedRequest[2]));
                     break;
                     default:
                         endconn = true;
-                        System.out.println("case bye");
                     break;
                 }
                 if (endconn) {
@@ -143,11 +145,13 @@ class ClientHandler  extends Thread {
         return Balance;
     }
     
-    float TransferOut (int IDIn, int IDOut, float amount)
+    String TransferOut (String BankID,String IDIn, String IDOut, String amount)
     {
-        float Balance=0;
-        
+        String Balance = Withdraw(IDIn, amount);
+        if(Balance != "-1") 
+        {
+            
+        }
         return Balance;
     }
-
 }
