@@ -1,21 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package distributed.bankingsystem.Server;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
 
-/**
- *
- * @author Essam
- */
 class ClientHandler  extends Thread {
-
-    //field
     Socket c;
 
     public ClientHandler(Socket c) {
@@ -34,28 +23,31 @@ class ClientHandler  extends Thread {
                 String request = dis.readUTF();
                 String[] parsedRequest = request.split(",");
                 switch (parsedRequest[0]) {
-                    case "0": // Login -> Username,Password,0 .. if -1 re-enter the data
+                    case "0": //Login
                         dos.writeUTF(Login (parsedRequest[1],parsedRequest[2]));
                         System.out.println("case 0");
                     break;
-                    case "1": //Checkamount -> ID,1 .. if -1 then empty
+                    case "1": //Checkamount
                         dos.writeUTF(CheckBalance(parsedRequest[1]));
                         System.out.println("case 1");
                     break;
-                    case "2": //Deposite -> ID,amount,2
+                    case "2": //Deposite
                         dos.writeUTF(Deposite(parsedRequest[1], parsedRequest[2]));
                     break;
-                    case "3": //Deposite -> ID,amount,2
+                    case "3": //Withdraw
                         dos.writeUTF(Withdraw(parsedRequest[1], parsedRequest[2]));
                     break;
-                    case "4": //Deposite -> ID,amount,2
+                    case "4": //Transfer In
                         dos.writeUTF(TransferIn(parsedRequest[1], parsedRequest[2], parsedRequest[3]));
                     break;
-                    case "5": //Deposite -> ID,amount,2
+                    case "5": //Transfer Out
                         dos.writeUTF(TransferOut(parsedRequest[1], parsedRequest[2], parsedRequest[3],parsedRequest[4]));
                     break;
-                    case "6": //Deposite -> 6,ID,amount
-                        dos.writeUTF(Deposite(parsedRequest[1], parsedRequest[2]));
+                    case "6": //Handle Transfer from Outside
+                        Deposite(parsedRequest[1], parsedRequest[2]);
+                    break;
+                    case "7": //View History
+
                     break;
                     default:
                         endconn = true;
@@ -66,34 +58,17 @@ class ClientHandler  extends Thread {
                     break;
                 }
             }
-            
             c.close();
             dis.close();
             dos.close();
-
-
-            /*
-            DBConnect connect = new DBConnect();
-            String result = connect.getData("SELECT * FROM APP.users","username");
-            String result2 = connect.getData("SELECT * FROM APP.users WHERE username = 'Ahmed'","ID");
-            
-            String[] data2 = result2.split(",");
-            for(int i=0;i<data2.length;i++)
-            System.out.println(data2[i]);
-            
-            
-            // parse string
-            String[] data = result.split(",");
-*/
         } 
         catch (Exception e) 
         {
             System.out.println("Error " +e);
         }
-
     }
-    
-        String Login (String Username, String Password)
+     
+    String Login (String Username, String Password)
     {
         DBConnect connect = new DBConnect();
         String databaseReply = connect.getData("SELECT * FROM APP.users WHERE username = '" + Username +"' and password = '" +Password +"'","ID");
@@ -148,9 +123,28 @@ class ClientHandler  extends Thread {
     String TransferOut (String BankID,String IDIn, String IDOut, String amount)
     {
         String Balance = Withdraw(IDIn, amount);
+        System.out.println("distributed.bankingsystem.Server.ClientHandler.TransferOut()..");
         if(Balance != "-1") 
         {
-            
+            try{
+                
+            DBConnect connect = new DBConnect();
+            String databaseReply = connect.getData("SELECT * FROM APP.banks WHERE ID = " + BankID ,"IP");
+            String[] splittedreply = databaseReply.split(",");
+            String IP = splittedreply[0];
+            databaseReply = connect.getData("SELECT * FROM APP.banks WHERE ID = " + BankID ,"PNO");
+            splittedreply = databaseReply.split(",");
+            Integer PNO = Integer.parseInt(splittedreply[0]);
+            Socket client = new Socket(IP, PNO);
+            DataInputStream disc = new DataInputStream(client.getInputStream());
+            DataOutputStream dosc = new DataOutputStream(client.getOutputStream());
+            dosc.writeUTF("6"+","+IDOut+","+amount);
+            client.close();
+            }
+            catch (Exception e) 
+            {
+            System.out.println("Error " +e);
+            }
         }
         return Balance;
     }

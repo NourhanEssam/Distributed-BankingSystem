@@ -10,7 +10,6 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -34,6 +33,9 @@ public class Client extends javax.swing.JFrame {
             client = new Socket("127.0.0.1", 1234);
             dis = new DataInputStream(client.getInputStream());
             dos = new DataOutputStream(client.getOutputStream());
+            System.out.println("distributed.bankingsystem.Client.Client.<init>()");
+            //String BankID,String IDIn, String IDOut, String amount
+            dos.writeUTF("5,1,1,2,100");
 
 /*            while (true) {
                 //receive msg from server
