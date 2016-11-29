@@ -1,8 +1,10 @@
 package distributed.bankingsystem.Server;
 
+import distributed.bankingsystem.AESencrp;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
+import java.text.SimpleDateFormat;
 
 class ClientHandler  extends Thread {
     Socket c;
@@ -11,50 +13,64 @@ class ClientHandler  extends Thread {
         this.c = c;
     }
     
-    
     @Override
-    public void run() {
-
+    public synchronized void run() {
         try {
             boolean endconn = false;
             DataInputStream dis = new DataInputStream(c.getInputStream());
             DataOutputStream dos = new DataOutputStream(c.getOutputStream());
             while (true) {
-                String request = dis.readUTF();
+                String request = AESencrp.decrypt(dis.readUTF());
                 String[] parsedRequest = request.split(",");
                 switch (parsedRequest[0]) {
                     case "0": //Login
-                        dos.writeUTF(Login (parsedRequest[1],parsedRequest[2]));
-                        System.out.println("case 0");
+                        dos.writeUTF(AESencrp.encrypt(Login (parsedRequest[1],parsedRequest[2])));
                     break;
                     case "1": //Checkamount
-                        dos.writeUTF(CheckBalance(parsedRequest[1]));
-                        System.out.println("case 1");
+                        dos.writeUTF(AESencrp.encrypt(CheckBalance(parsedRequest[1])));
                     break;
                     case "2": //Deposite
-                        dos.writeUTF(Deposite(parsedRequest[1], parsedRequest[2]));
+                        String deposite = Deposite(parsedRequest[1], parsedRequest[2]);
+                        dos.writeUTF(AESencrp.encrypt(deposite));
+                        if (!deposite.equals("-1"))
+                            SaveInDB(parsedRequest[1], "Deposite", parsedRequest[2]);
                     break;
                     case "3": //Withdraw
-                        dos.writeUTF(Withdraw(parsedRequest[1], parsedRequest[2]));
+                        String withdraw = Withdraw(parsedRequest[1], parsedRequest[2]);
+                        dos.writeUTF(AESencrp.encrypt(withdraw));
+                        if (!withdraw.equals("-1"))
+                            SaveInDB(parsedRequest[1], "Withdraw", parsedRequest[2]);
                     break;
                     case "4": //Transfer In
-                        dos.writeUTF(TransferIn(parsedRequest[1], parsedRequest[2], parsedRequest[3]));
+                        String TransferIn = TransferIn(parsedRequest[1], parsedRequest[2], parsedRequest[3]);
+                        dos.writeUTF(AESencrp.encrypt(TransferIn));
+                        if (!TransferIn.equals("-1"))
+                        {
+                            SaveInDB(parsedRequest[1], "Transfer To "+parsedRequest[2], parsedRequest[3]);
+                            SaveInDB(parsedRequest[2], "Transfer From "+parsedRequest[1], parsedRequest[3]);
+                        }
                     break;
                     case "5": //Transfer Out
-                        dos.writeUTF(TransferOut(parsedRequest[1], parsedRequest[2], parsedRequest[3],parsedRequest[4]));
+                        String TransferOut = TransferOut(parsedRequest[1], parsedRequest[2], parsedRequest[3],parsedRequest[4]);
+                        dos.writeUTF(AESencrp.encrypt(TransferOut));
+                        if (!TransferOut.equals("-1"))
+                        {
+                            SaveInDB(parsedRequest[2], "Transfer To "+parsedRequest[3]+" In Bank "+parsedRequest[1], parsedRequest[4]);
+                        }
                     break;
                     case "6": //Handle Transfer from Outside
-                        Deposite(parsedRequest[1], parsedRequest[2]);
+                        String Tout = Deposite(parsedRequest[1], parsedRequest[2]);
+                        if (!Tout.equals("-1")) SaveInDB(parsedRequest[1], "Transfer From "+parsedRequest[3]+" From Another Bank", parsedRequest[2]);
                     break;
                     case "7": //View History
-
+                        dos.writeUTF(AESencrp.encrypt(TransferHistory(parsedRequest[1], parsedRequest[2], parsedRequest[3], parsedRequest[4], parsedRequest[5])));
                     break;
                     default:
                         endconn = true;
                     break;
                 }
                 if (endconn) {
-                    dos.writeUTF("bye");
+                    dos.writeUTF(AESencrp.encrypt("bye"));
                     break;
                 }
             }
@@ -67,17 +83,24 @@ class ClientHandler  extends Thread {
             System.out.println("Error " +e);
         }
     }
+    
+    synchronized void SaveInDB (String ID,String type, String amount)
+    {
+        String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.ms").format(new java.util.Date());
+        DBConnect connect = new DBConnect();
+        connect.updateData("INSERT INTO App.THistory (UID,DateTime,Type,Amonut) VALUES ( "+ ID + "," + "'" + timeStamp + "'" + "," + "'" + type + "'" + "," + amount + ")");
+    }
      
-    String Login (String Username, String Password)
+    synchronized String Login (String Username, String Password)
     {
         DBConnect connect = new DBConnect();
         String databaseReply = connect.getData("SELECT * FROM APP.users WHERE username = '" + Username +"' and password = '" +Password +"'","ID");
         String[] splittedreply = databaseReply.split(",");
         if(splittedreply[0] == "") return "-1";
-        return splittedreply[0];
+        return splittedreply[0];      
     }
     
-    String CheckBalance (String ID)
+    synchronized String CheckBalance (String ID)
     {
         DBConnect connect = new DBConnect();
         String databaseReply = connect.getData("SELECT * FROM APP.users WHERE ID = " + ID ,"amount");
@@ -86,7 +109,7 @@ class ClientHandler  extends Thread {
         return splittedreply[0];
     }
     
-    String Deposite (String ID, String amount)
+    synchronized String Deposite (String ID, String amount)
     {
         DBConnect connect = new DBConnect();
         String databaseReply = connect.getData("SELECT * FROM APP.users WHERE ID = " + ID ,"amount");
@@ -98,7 +121,7 @@ class ClientHandler  extends Thread {
         return Float.toString(newamount);
     }
     
-    String Withdraw (String ID, String amount)
+    synchronized String Withdraw (String ID, String amount)
     {
         DBConnect connect = new DBConnect();
         String databaseReply = connect.getData("SELECT * FROM APP.users WHERE ID = " + ID ,"amount");
@@ -113,17 +136,16 @@ class ClientHandler  extends Thread {
         return Float.toString(newamount);
     }
     
-    String TransferIn (String ID1, String ID2, String amount)
+    synchronized String TransferIn (String ID1, String ID2, String amount)
     {
         String Balance = Withdraw(ID1, amount);
         if(Balance != "-1") Deposite(ID2, amount);
         return Balance;
     }
     
-    String TransferOut (String BankID,String IDIn, String IDOut, String amount)
+    synchronized String TransferOut (String BankID,String IDIn, String IDOut, String amount)
     {
         String Balance = Withdraw(IDIn, amount);
-        System.out.println("distributed.bankingsystem.Server.ClientHandler.TransferOut()..");
         if(Balance != "-1") 
         {
             try{
@@ -138,7 +160,7 @@ class ClientHandler  extends Thread {
             Socket client = new Socket(IP, PNO);
             DataInputStream disc = new DataInputStream(client.getInputStream());
             DataOutputStream dosc = new DataOutputStream(client.getOutputStream());
-            dosc.writeUTF("6"+","+IDOut+","+amount);
+            dosc.writeUTF(AESencrp.encrypt("6"+","+IDOut+","+amount+","+IDIn));
             client.close();
             }
             catch (Exception e) 
@@ -147,5 +169,18 @@ class ClientHandler  extends Thread {
             }
         }
         return Balance;
+    }
+    
+    synchronized String TransferHistory(String ID, String Y1, String M1, String Y2, String M2)
+    {
+            DBConnect connect = new DBConnect();
+            String TS1 = Y1+"-"+M1+"-1 00:00:00";
+            String TS2 = Y2+"-"+M2+"-1 00:00:00";
+            String databaseReply_dateTime = connect.getData("SELECT * FROM App.THistory WHERE DateTime >= "+"'"+TS1+"'"+" AND DateTime < "+"'"+TS2+"'"+" AND UID = "+ID,"DateTime");
+            String databaseReply_Type = connect.getData("SELECT * FROM App.THistory WHERE DateTime >= "+"'"+TS1+"'"+" AND DateTime < "+"'"+TS2+"'"+" AND UID = "+ID,"Type");
+            String databaseReply = databaseReply_Type + ";" + databaseReply_dateTime;
+            System.out.println(databaseReply);
+            if(databaseReply == "") return "-1";
+            return databaseReply;
     }
 }

@@ -5,6 +5,7 @@
  */
 package distributed.bankingsystem.Client;
 
+import distributed.bankingsystem.AESencrp;
 import distributed.bankingsystem.Client.choice;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -34,8 +35,12 @@ public class Client extends javax.swing.JFrame {
             dis = new DataInputStream(client.getInputStream());
             dos = new DataOutputStream(client.getOutputStream());
             System.out.println("distributed.bankingsystem.Client.Client.<init>()");
-            //String BankID,String IDIn, String IDOut, String amount
-            dos.writeUTF("5,1,1,2,100");
+            dos.writeUTF(AESencrp.encrypt("5,1,1,2,100"));
+            dos.writeUTF(AESencrp.encrypt("2,3,100"));
+            dos.writeUTF(AESencrp.encrypt("3,3,100"));
+            dos.writeUTF(AESencrp.encrypt("4,1,2,1000"));
+            dos.writeUTF(AESencrp.encrypt("5,1,4,3,100"));
+            dos.writeUTF(AESencrp.encrypt("7,1,1999,04,2222,05"));
 
 /*            while (true) {
                 //receive msg from server
