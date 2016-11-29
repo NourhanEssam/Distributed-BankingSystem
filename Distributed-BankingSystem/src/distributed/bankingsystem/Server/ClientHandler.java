@@ -21,12 +21,14 @@ class ClientHandler  extends Thread {
             DataOutputStream dos = new DataOutputStream(c.getOutputStream());
             while (true) {
                 String request = AESencrp.decrypt(dis.readUTF());
+                System.out.println(request);
                 String[] parsedRequest = request.split(",");
                 switch (parsedRequest[0]) {
                     case "0": //Login
                         dos.writeUTF(AESencrp.encrypt(Login (parsedRequest[1],parsedRequest[2])));
                     break;
                     case "1": //Checkamount
+                        System.out.println("distributed.bankingsystem.Server.ClientHandler.run()");
                         dos.writeUTF(AESencrp.encrypt(CheckBalance(parsedRequest[1])));
                     break;
                     case "2": //Deposite
@@ -177,9 +179,16 @@ class ClientHandler  extends Thread {
             String TS1 = Y1+"-"+M1+"-1 00:00:00";
             String TS2 = Y2+"-"+M2+"-1 00:00:00";
             String databaseReply_dateTime = connect.getData("SELECT * FROM App.THistory WHERE DateTime >= "+"'"+TS1+"'"+" AND DateTime < "+"'"+TS2+"'"+" AND UID = "+ID,"DateTime");
+            String[] splittedreply_dateTime = databaseReply_dateTime.split(",");
             String databaseReply_Type = connect.getData("SELECT * FROM App.THistory WHERE DateTime >= "+"'"+TS1+"'"+" AND DateTime < "+"'"+TS2+"'"+" AND UID = "+ID,"Type");
-            String databaseReply = databaseReply_Type + ";" + databaseReply_dateTime;
-            System.out.println(databaseReply);
+            String[] splittedreply_Type = databaseReply_Type.split(",");
+            String databaseReply = "";
+            String Item;
+            for(int i=0;i<splittedreply_Type.length;i++)
+            {
+             Item = splittedreply_Type[i]+"    --   "+splittedreply_dateTime[i];
+             databaseReply = databaseReply+ Item+";";
+            }
             if(databaseReply == "") return "-1";
             return databaseReply;
     }

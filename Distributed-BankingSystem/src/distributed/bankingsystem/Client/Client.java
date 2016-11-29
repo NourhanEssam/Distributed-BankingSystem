@@ -6,11 +6,14 @@
 package distributed.bankingsystem.Client;
 
 import distributed.bankingsystem.AESencrp;
+import static distributed.bankingsystem.Client.Client.dis;
+import static distributed.bankingsystem.Client.Client.dos;
 import distributed.bankingsystem.Client.choice;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,9 +27,9 @@ public class Client extends javax.swing.JFrame {
      * Creates new form Client
      */
     String name,pass;
-    DataOutputStream dos;
-    DataInputStream dis;
-    Socket client;
+    public static DataOutputStream dos;
+    public static DataInputStream dis;
+    public static Socket client;
     
     public Client() {
         initComponents();
@@ -34,13 +37,6 @@ public class Client extends javax.swing.JFrame {
             client = new Socket("127.0.0.1", 1234);
             dis = new DataInputStream(client.getInputStream());
             dos = new DataOutputStream(client.getOutputStream());
-            System.out.println("distributed.bankingsystem.Client.Client.<init>()");
-            dos.writeUTF(AESencrp.encrypt("5,1,1,2,100"));
-            dos.writeUTF(AESencrp.encrypt("2,3,100"));
-            dos.writeUTF(AESencrp.encrypt("3,3,100"));
-            dos.writeUTF(AESencrp.encrypt("4,1,2,1000"));
-            dos.writeUTF(AESencrp.encrypt("5,1,4,3,100"));
-            dos.writeUTF(AESencrp.encrypt("7,1,1999,04,2222,05"));
 
 /*            while (true) {
                 //receive msg from server
@@ -109,7 +105,7 @@ public class Client extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jTextField2);
-        jTextField2.setBounds(70, 130, 110, 19);
+        jTextField2.setBounds(90, 120, 110, 30);
 
         jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -117,19 +113,19 @@ public class Client extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jPasswordField1);
-        jPasswordField1.setBounds(70, 160, 110, 19);
+        jPasswordField1.setBounds(90, 160, 110, 30);
 
         jLabel1.setText("User Name");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(10, 130, 60, 15);
+        jLabel1.setBounds(10, 130, 60, 14);
 
         jLabel2.setText("User Name");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(10, 130, 60, 15);
+        jLabel2.setBounds(10, 130, 60, 14);
 
         jLabel3.setText("Password");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(10, 160, 60, 15);
+        jLabel3.setBounds(10, 170, 60, 14);
 
         jButton1.setBackground(new java.awt.Color(102, 102, 255));
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -140,7 +136,7 @@ public class Client extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(170, 250, 67, 24);
+        jButton1.setBounds(170, 250, 65, 23);
         getContentPane().add(jLabel4);
         jLabel4.setBounds(20, 200, 260, 20);
 
@@ -160,19 +156,21 @@ public class Client extends javax.swing.JFrame {
         try {
             // TODO add your handling code here:
             String request = "0" + "," + jTextField2.getText() + "," + jPasswordField1.getText();
-            System.err.println(request);
-            dos.writeUTF(request);
-            String reply =  dis.readUTF();
-            System.out.println(reply);
+            dos.writeUTF(AESencrp.encrypt(request));
+            String reply =  AESencrp.decrypt(dis.readUTF());
+            
             if(Integer.parseInt(reply) == -1)
             {   
                 jLabel4.setText("Wrong Username or Password");
             }
             else {
-             choice c =new choice(); 
+                
+             choice c =new choice(reply); 
              c.setVisible(true);
             }
         } catch (IOException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed

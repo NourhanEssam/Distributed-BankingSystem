@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package distributed.bankingsystem.Client;
+import distributed.bankingsystem.AESencrp;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -13,9 +16,19 @@ public class choice extends javax.swing.JFrame {
 
     /**
      * Creates new form choice
+     * @param id
      */
+    private String ID;
     public choice() {
         initComponents();
+        
+    }
+    
+    public choice(String id) {
+        initComponents();
+        ID=id;
+        
+       
     }
 
     /**
@@ -143,38 +156,42 @@ public class choice extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void checkbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkbuttonActionPerformed
-        // TODO add your handling code here:
-        Check c = new Check();
-        c.setVisible(true);
+        try {
+            // TODO add your handling code here:
+            Check c = new Check(ID);
+            c.setVisible(true);
+        } catch (Exception ex) {
+            Logger.getLogger(choice.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_checkbuttonActionPerformed
 
     private void deposiebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deposiebuttonActionPerformed
         // TODO add your handling code here:
-        deposite d = new deposite();
+        deposite d = new deposite(ID);
         d.setVisible(true);
     }//GEN-LAST:event_deposiebuttonActionPerformed
 
     private void withdrawbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_withdrawbuttonActionPerformed
         // TODO add your handling code here:
-        withdraw w =new withdraw();
+        withdraw w =new withdraw(ID);
         w.setVisible(true);
     }//GEN-LAST:event_withdrawbuttonActionPerformed
 
     private void transferSameBankbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transferSameBankbuttonActionPerformed
         // TODO add your handling code here:
-        transfer_s_bank t=new transfer_s_bank();
+        transfer_s_bank t=new transfer_s_bank(ID);
         t.setVisible(true);
     }//GEN-LAST:event_transferSameBankbuttonActionPerformed
 
     private void transferAnotherBankbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transferAnotherBankbuttonActionPerformed
         // TODO add your handling code here:
-        transfer_otherBank t=new transfer_otherBank();
+        transfer_otherBank t=new transfer_otherBank(ID);
         t.setVisible(true);
     }//GEN-LAST:event_transferAnotherBankbuttonActionPerformed
 
     private void historybuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_historybuttonActionPerformed
         // TODO add your handling code here:
-        history h =new history();
+        history h =new history(ID);
         h.setVisible(true);
     }//GEN-LAST:event_historybuttonActionPerformed
 
