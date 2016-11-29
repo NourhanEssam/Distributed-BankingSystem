@@ -1,8 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
+*/
 package distributed.bankingsystem.Client;
 
 import static distributed.bankingsystem.Client.Client.dis;
@@ -18,7 +18,7 @@ import distributed.bankingsystem.AESencrp;
  * @author M
  */
 public class transfer_s_bank extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form transfer_s_bank
      */
@@ -30,7 +30,7 @@ public class transfer_s_bank extends javax.swing.JFrame {
         initComponents();
         ID = Id;
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -174,8 +174,8 @@ public class transfer_s_bank extends javax.swing.JFrame {
                 jLabel2.setText("Wrong Transaction");
             }
             else{
-            jLabel2.setText("Your Current Balance is "+ reply);}
-        } 
+                jLabel2.setText("Your Current Balance is "+ reply);}
+        }
         catch (IOException ex)
         {
             Logger.getLogger(deposite.class.getName()).log(Level.SEVERE, null, ex);
@@ -196,10 +196,10 @@ public class transfer_s_bank extends javax.swing.JFrame {
 
     private void menubuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menubuttonActionPerformed
         // TODO add your handling code here:
-         choice c =new choice(ID); 
+        choice c =new choice(ID);
         c.setVisible(true);
     }//GEN-LAST:event_menubuttonActionPerformed
-
+    
     /**
      * @param args the command line arguments
      */
@@ -207,8 +207,8 @@ public class transfer_s_bank extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+        * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
+        */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -226,7 +226,7 @@ public class transfer_s_bank extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(transfer_s_bank.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

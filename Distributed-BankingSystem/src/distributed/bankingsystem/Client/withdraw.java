@@ -1,8 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
+*/
 package distributed.bankingsystem.Client;
 
 import static distributed.bankingsystem.Client.Client.dis;
@@ -18,7 +18,7 @@ import distributed.bankingsystem.AESencrp;
  * @author M
  */
 public class withdraw extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form withdraw
      */
@@ -32,7 +32,7 @@ public class withdraw extends javax.swing.JFrame {
         initComponents();
         ID = id;
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -136,7 +136,7 @@ public class withdraw extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-         choice c =new choice(ID); 
+        choice c =new choice(ID);
         c.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -153,7 +153,7 @@ public class withdraw extends javax.swing.JFrame {
             String reply =  AESencrp.decrypt(dis.readUTF());
             System.out.println(reply);
             if(reply.equals("-1"))
-            {   
+            {
                 jLabel2.setText("Wrong Transaction Operation");
             }
             else{
@@ -170,7 +170,7 @@ public class withdraw extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_closebuttonActionPerformed
-
+    
     /**
      * @param args the command line arguments
      */
@@ -178,8 +178,8 @@ public class withdraw extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+        * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
+        */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -197,7 +197,7 @@ public class withdraw extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(withdraw.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
