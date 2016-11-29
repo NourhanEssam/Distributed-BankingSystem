@@ -131,7 +131,7 @@ public class deposite extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-String amount;
+
     private void depositebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_depositebuttonActionPerformed
         try {
             // TODO add your handling code here:
