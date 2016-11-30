@@ -67,6 +67,9 @@ class ClientHandler  extends Thread {
                     case "7": //View History
                         dos.writeUTF(AESencrp.encrypt(TransferHistory(parsedRequest[1], parsedRequest[2], parsedRequest[3], parsedRequest[4], parsedRequest[5])));
                         break;
+                    case "8":
+                        dos.writeUTF(AESencrp.encrypt(SignUp (parsedRequest[1],parsedRequest[2],parsedRequest[3])));
+                        break;
                     default:
                         endconn = true;
                         break;
@@ -192,4 +195,23 @@ class ClientHandler  extends Thread {
         if(databaseReply == "") return "-1";
         return databaseReply;
     }
+    synchronized  String SignUp(String Username, String Password, String Amount)
+    {
+        DBConnect connect = new DBConnect();
+        String ID = connect.getData("SELECT MAX(ID) FROM App.users","1");
+        String[] splittedreply = ID.split(",");
+        if(splittedreply[0] == "") splittedreply[0] = "0";
+        System.out.println(ID+" "+splittedreply[0]);
+        int lastID=Integer.parseInt(splittedreply[0]);
+        System.out.println("distributed.bankingsystem.Server.ClientHandler.SignUp() ........."+lastID);
+        lastID++;
+        
+        String databaseReply = connect.getData("SELECT * FROM APP.users WHERE username = '" + Username+"'","ID");
+        String[] splittedreplydb = databaseReply.split(",");
+        if(!splittedreplydb[0].equals("")) return "-1";
+        
+        connect.updateData("INSERT INTO APP.users VALUES(" + lastID + "," + "'" + Username + "'," + "'" + Password + "'," +  Amount + ")");
+        return "1";
+    }
+    
 }
