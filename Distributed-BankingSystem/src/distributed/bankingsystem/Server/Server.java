@@ -60,7 +60,7 @@ public class Server extends javax.swing.JFrame {
             }
         });
         try {
-            ServerSocket server = new ServerSocket(1235);
+            ServerSocket server = new ServerSocket(1234);
             while (true) {
                 Socket c = server.accept();
                 System.out.println("Client Arrived");

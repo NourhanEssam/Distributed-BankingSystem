@@ -101,7 +101,7 @@ class ClientHandler  extends Thread {
         DBConnect connect = new DBConnect();
         String databaseReply = connect.getData("SELECT * FROM APP.users WHERE username = '" + Username +"' and password = '" +Password +"'","ID");
         String[] splittedreply = databaseReply.split(",");
-        if(splittedreply[0] == "") return "-1";
+        if(splittedreply[0].equals("")) return "-1";
         return splittedreply[0];
     }
     
@@ -110,7 +110,7 @@ class ClientHandler  extends Thread {
         DBConnect connect = new DBConnect();
         String databaseReply = connect.getData("SELECT * FROM APP.users WHERE ID = " + ID ,"amount");
         String[] splittedreply = databaseReply.split(",");
-        if(splittedreply[0] == "") return "-1";
+        if(splittedreply[0].equals("")) return "-1";
         return splittedreply[0];
     }
     
@@ -120,7 +120,7 @@ class ClientHandler  extends Thread {
         String databaseReply = connect.getData("SELECT * FROM APP.users WHERE ID = " + ID ,"amount");
         String[] splittedreply = databaseReply.split(",");
         float newamount;
-        if(splittedreply[0] == "") return "-1";
+        if(splittedreply[0].equals("")) return "-1";
         newamount = Float.parseFloat(splittedreply[0]) + Float.parseFloat(amount);
         connect.updateData("UPDATE APP.users SET amount = " + Float.toString(newamount) + "WHERE ID = " + ID );
         return Float.toString(newamount);
@@ -132,7 +132,7 @@ class ClientHandler  extends Thread {
         String databaseReply = connect.getData("SELECT * FROM APP.users WHERE ID = " + ID ,"amount");
         String[] splittedreply = databaseReply.split(",");
         float newamount;
-        if(splittedreply[0] == "") return "-1";
+        if(splittedreply[0].equals("")) return "-1";
         if(Float.parseFloat(splittedreply[0]) < Float.parseFloat(amount))
             return "-1";
         else
@@ -144,17 +144,16 @@ class ClientHandler  extends Thread {
     synchronized String TransferIn (String ID1, String ID2, String amount)
     {
         String Balance = Withdraw(ID1, amount);
-        if(Balance != "-1") Deposite(ID2, amount);
+        if(!Balance.equals("-1")) Deposite(ID2, amount);
         return Balance;
     }
     
     synchronized String TransferOut (String BankID,String IDIn, String IDOut, String amount)
     {
         String Balance = Withdraw(IDIn, amount);
-        if(Balance != "-1")
+        if(!Balance.equals("-1"))
         {
             try{
-                
                 DBConnect connect = new DBConnect();
                 String databaseReply = connect.getData("SELECT * FROM APP.banks WHERE ID = " + BankID ,"IP");
                 String[] splittedreply = databaseReply.split(",");
@@ -185,14 +184,16 @@ class ClientHandler  extends Thread {
         String[] splittedreply_dateTime = databaseReply_dateTime.split(",");
         String databaseReply_Type = connect.getData("SELECT * FROM App.THistory WHERE DateTime >= "+"'"+TS1+"'"+" AND DateTime < "+"'"+TS2+"'"+" AND UID = "+ID,"Type");
         String[] splittedreply_Type = databaseReply_Type.split(",");
+        String databaseReply_amt = connect.getData("SELECT * FROM App.THistory WHERE DateTime >= "+"'"+TS1+"'"+" AND DateTime < "+"'"+TS2+"'"+" AND UID = "+ID,"Amonut");
+        String[] splittedreply_amt = databaseReply_amt.split(",");
         String databaseReply = "";
         String Item;
         for(int i=0;i<splittedreply_Type.length;i++)
         {
-            Item = splittedreply_Type[i]+"    --   "+splittedreply_dateTime[i];
+            Item = splittedreply_Type[i]+","+splittedreply_amt[i]+","+splittedreply_dateTime[i];
             databaseReply = databaseReply+ Item+";";
         }
-        if(databaseReply == "") return "-1";
+        if(databaseReply.equals("")) return "-1";
         return databaseReply;
     }
     synchronized  String SignUp(String Username, String Password, String Amount)
@@ -200,7 +201,7 @@ class ClientHandler  extends Thread {
         DBConnect connect = new DBConnect();
         String ID = connect.getData("SELECT MAX(ID) FROM App.users","1");
         String[] splittedreply = ID.split(",");
-        if(splittedreply[0] == "") splittedreply[0] = "0";
+        if(splittedreply[0].equals("")) splittedreply[0] = "0";
         System.out.println(ID+" "+splittedreply[0]);
         int lastID=Integer.parseInt(splittedreply[0]);
         System.out.println("distributed.bankingsystem.Server.ClientHandler.SignUp() ........."+lastID);
@@ -213,5 +214,4 @@ class ClientHandler  extends Thread {
         connect.updateData("INSERT INTO APP.users VALUES(" + lastID + "," + "'" + Username + "'," + "'" + Password + "'," +  Amount + ")");
         return "1";
     }
-    
 }
