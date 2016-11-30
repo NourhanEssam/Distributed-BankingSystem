@@ -169,7 +169,8 @@ public class transfer_otherBank extends javax.swing.JFrame {
         try {
             dos.writeUTF(AESencrp.encrypt("5,"+jTextField4.getText()+","+ID+","+jTextField5.getText()+","+jTextField3.getText()));
             String rep = AESencrp.decrypt(dis.readUTF());
-            jLabel3.setText(rep);
+            if (rep.equals("-1")) jLabel3.setText("Wrong Transaction");
+            else jLabel3.setText(rep);
         }
         catch (IOException ex) {
             Logger.getLogger(transfer_otherBank.class.getName()).log(Level.SEVERE, null, ex);

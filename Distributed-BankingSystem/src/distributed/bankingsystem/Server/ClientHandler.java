@@ -28,7 +28,6 @@ class ClientHandler  extends Thread {
                         dos.writeUTF(AESencrp.encrypt(Login (parsedRequest[1],parsedRequest[2])));
                         break;
                     case "1": //Checkamount
-                        System.out.println("distributed.bankingsystem.Server.ClientHandler.run()");
                         dos.writeUTF(AESencrp.encrypt(CheckBalance(parsedRequest[1])));
                         break;
                     case "2": //Deposite
@@ -178,8 +177,10 @@ class ClientHandler  extends Thread {
     synchronized String TransferHistory(String ID, String Y1, String M1, String Y2, String M2)
     {
         DBConnect connect = new DBConnect();
-        String TS1 = Y1+"-"+M1+"-1 00:00:00";
-        String TS2 = Y2+"-"+M2+"-1 00:00:00";
+        Integer m1 = Integer.parseInt(M1) + 1;
+        Integer m2 = Integer.parseInt(M2) + 1;
+        String TS1 = Y1+"-"+m1+"-01 00:00:00";
+        String TS2 = Y2+"-"+m2+"-01 00:00:00";
         String databaseReply_dateTime = connect.getData("SELECT * FROM App.THistory WHERE DateTime >= "+"'"+TS1+"'"+" AND DateTime < "+"'"+TS2+"'"+" AND UID = "+ID,"DateTime");
         String[] splittedreply_dateTime = databaseReply_dateTime.split(",");
         String databaseReply_Type = connect.getData("SELECT * FROM App.THistory WHERE DateTime >= "+"'"+TS1+"'"+" AND DateTime < "+"'"+TS2+"'"+" AND UID = "+ID,"Type");
@@ -204,7 +205,6 @@ class ClientHandler  extends Thread {
         if(splittedreply[0].equals("")) splittedreply[0] = "0";
         System.out.println(ID+" "+splittedreply[0]);
         int lastID=Integer.parseInt(splittedreply[0]);
-        System.out.println("distributed.bankingsystem.Server.ClientHandler.SignUp() ........."+lastID);
         lastID++;
         
         String databaseReply = connect.getData("SELECT * FROM APP.users WHERE username = '" + Username+"'","ID");

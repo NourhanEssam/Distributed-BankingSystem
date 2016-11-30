@@ -150,6 +150,7 @@ public class transfer_s_bank extends javax.swing.JFrame {
             String request = "4" + "," + ID +","+ ID2 +"," + amount;
             dos.writeUTF(AESencrp.encrypt(request));
             String reply =  AESencrp.decrypt(dis.readUTF());
+            System.out.println(reply);
             if(reply.equals("-1")){
                 jLabel2.setText("Wrong Transaction");
             }
