@@ -177,10 +177,14 @@ class ClientHandler  extends Thread {
     synchronized String TransferHistory(String ID, String Y1, String M1, String Y2, String M2)
     {
         DBConnect connect = new DBConnect();
-        Integer m1 = Integer.parseInt(M1) + 1;
-        Integer m2 = Integer.parseInt(M2) + 1;
-        String TS1 = Y1+"-"+m1+"-01 00:00:00";
-        String TS2 = Y2+"-"+m2+"-01 00:00:00";
+        Integer m1 = Integer.parseInt(M1) + 1; 
+        Integer m2 = Integer.parseInt(M2) + 1; 
+        Integer y1 = Integer.parseInt(Y1) + 1;
+        Integer y2 = Integer.parseInt(Y2) + 1;
+        if(m1==13) {m1=1; y1+=1;}
+        if(m2==13) {m2=1; y2+=1;}
+        String TS1 = y1+"-"+m1+"-01 00:00:00";
+        String TS2 = y2+"-"+m2+"-01 00:00:00";
         String databaseReply_dateTime = connect.getData("SELECT * FROM App.THistory WHERE DateTime >= "+"'"+TS1+"'"+" AND DateTime < "+"'"+TS2+"'"+" AND UID = "+ID,"DateTime");
         String[] splittedreply_dateTime = databaseReply_dateTime.split(",");
         String databaseReply_Type = connect.getData("SELECT * FROM App.THistory WHERE DateTime >= "+"'"+TS1+"'"+" AND DateTime < "+"'"+TS2+"'"+" AND UID = "+ID,"Type");

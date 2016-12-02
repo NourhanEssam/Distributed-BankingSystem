@@ -21,7 +21,7 @@ public class Client extends javax.swing.JFrame {
         initComponents();
         jTextField2.requestFocusInWindow();
         try {
-            client = new Socket("127.0.0.1", 1234);
+            client = new Socket("192.168.43.244", 1234);
             dis = new DataInputStream(client.getInputStream());
             dos = new DataOutputStream(client.getOutputStream());
             
